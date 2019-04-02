@@ -22,9 +22,18 @@ export default {
   mounted () {
   },
   created () {
+    this.getInfo()
     window.addEventListener('beforeunload', () => {
       sessionStorage.setItem('u', encrypt(this.username) || sessionStorage.getItem('u'))
     })
+  },
+  methods: {
+    getInfo () {
+      if (!this.$store.state.username) {
+        // 发起请求
+        // this.$store.dispatch('login', )
+      }
+    }
   }
 }
 </script>
