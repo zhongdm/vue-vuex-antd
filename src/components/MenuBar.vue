@@ -65,6 +65,11 @@ export default {
             {
               key: '2-2',
               value: '分布图'
+            },
+            {
+              key: '2-3',
+              value: '地图',
+              link: '/charts/map'
             }
           ]
         },

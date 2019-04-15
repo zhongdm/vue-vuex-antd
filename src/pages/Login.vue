@@ -31,7 +31,7 @@
 
 <script>
 // import axios from 'axios'
-import {encrypt} from '@/utils/jsencrypt'
+// import {encrypt} from '@/utils/jsencrypt'
 
 export default {
   data () {
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.$store.dispatch('login', {username: encrypt('miyazhong')})
+      // this.$store.dispatch('login', {username: encrypt('miyazhong')})
       // let jse = new this.$jsEncrypt()
       // console.log(new this.$jsEncrypt())
       // await axios.get('/static/rsa_1024_pub.pem').then(res => {
