@@ -19,6 +19,21 @@ const router = new Router({
           component: () => import('@/pages/home/Info')
         },
         {
+          path: 'charts',
+          component: () => import('@/pages/map'),
+          children: [
+            {
+              path: '',
+              redirect: 'map'
+            },
+            {
+              path: 'map',
+              name: 'map',
+              component: () => import('@/pages/map/path')
+            }
+          ]
+        },
+        {
           path: 'settings',
           component: () => import('@/pages/settings/Settings'),
           children: [
