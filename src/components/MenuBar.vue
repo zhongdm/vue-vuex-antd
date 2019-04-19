@@ -88,6 +88,32 @@ export default {
               link: '/settings/role'
             }
           ]
+        },
+        {
+          key: '4',
+          value: '处理策略',
+          children: [
+            {
+              key: '4-1',
+              value: '原始处理',
+              link: '/tragedy/native'
+            },
+            {
+              key: '4-2',
+              value: '大数据量处理',
+              link: '/tragedy/worker'
+            },
+            {
+              key: '4-3',
+              value: '共享worker-one',
+              link: '/tragedy/sw1'
+            },
+            {
+              key: '4-4',
+              value: '共享worker-two',
+              link: '/tragedy/sw2'
+            }
+          ]
         }
       ]
     }
