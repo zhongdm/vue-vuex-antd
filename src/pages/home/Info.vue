@@ -11,7 +11,6 @@ export default {
   name: 'Info',
   data () {
     return {
-      username: ''
     }
   },
   computed: {

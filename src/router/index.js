@@ -52,6 +52,28 @@ const router = new Router({
               component: () => import('@/pages/settings/Role')
             }
           ]
+        },
+        {
+          path: 'tragedy',
+          component: () => import('@/pages/tragedy/Index'),
+          children: [
+            {
+              path: 'native',
+              component: () => import('@/pages/tragedy/PatchHandle')
+            },
+            {
+              path: 'worker',
+              component: () => import('@/pages/tragedy/DedicatedWorker')
+            },
+            {
+              path: 'sw1',
+              component: () => import('@/pages/tragedy/SharedWorker1')
+            },
+            {
+              path: 'sw2',
+              component: () => import('@/pages/tragedy/SharedWorker2')
+            }
+          ]
         }
       ]
     }

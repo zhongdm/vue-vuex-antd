@@ -33,3 +33,11 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Web Worker
++ DedicatedWorkerGlobalScope(专用worker)
++ SharedWorkerGlobalScope(共享worker)
++ Service Workers
++ Chrome Workers
++ 音频Workers
+
