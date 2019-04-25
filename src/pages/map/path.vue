@@ -67,6 +67,7 @@ export default {
           }
         }
       });
+      console.log(startPoint, endPoint)
       driving.search(startPoint, endPoint)
       
       driving.setPolylinesSetCallback(rs => {

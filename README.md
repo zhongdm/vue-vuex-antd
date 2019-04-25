@@ -2,6 +2,11 @@
 
 > A Vue.js project
 
+## 预渲染 VS 服务端渲染
+
+> 预渲染：prerender-spa-plugin
+
+
 ## Build Setup
 
 ``` bash

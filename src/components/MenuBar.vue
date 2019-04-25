@@ -51,7 +51,7 @@ export default {
           key: '1',
           value: '信息详情',
           selected: true,
-          link: '/info'
+          link: '/'
         },
         {
           key: '2',
