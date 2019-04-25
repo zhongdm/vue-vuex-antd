@@ -37,7 +37,8 @@ export default {
     startWorker() {
       if (window.SharedWorker) {
         // Worker只能读取网络文件
-        this.worker = new SharedWorker('/static/sharedWorker.js')
+        this.worker = new SharedWorker('/static/sharedWorker.js', {name: 'helloworld'})
+        console.log(this.worker)
         this.worker.port.start() // 这句很重要，启动worker的监听，否则onconnet无法接收数据
 
         console.log('worker 启动成功')

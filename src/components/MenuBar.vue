@@ -122,7 +122,6 @@ export default {
     handleMenu (e) {
       this.activeMenu = e.key
       this.$router.push(e.domEvent.target.dataset.path)
-      console.log('selected', e.domEvent.target.dataset.path)
     }
   }
 }
