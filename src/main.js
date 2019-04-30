@@ -2,23 +2,48 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import TestPlugin from './plugins-custom/TestPlugin'
 import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
+// import 'ant-design-vue/dist/antd.css'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
 import JsEncrypt from 'jsencrypt'
-import store from '@/store'
+// import router from './router'
+// import store from '@/store'
+import { createRouter } from './router'
+import { createStore } from '@/store'
+import { sync } from 'vuex-router-sync'
+import EventBus from './plugins-custom/SharedEventBus'
 
 Vue.config.productionTip = false
 Vue.use(TestPlugin)
+Vue.use(EventBus)
 Vue.use(Antd)
+// Vue.use(ElementUI)
 Vue.prototype.$jsEncrypt = JsEncrypt
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
-})
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   components: { App },
+//   template: '<App/>'
+// })
+
+export function createApp () {
+
+  const router = createRouter()
+  const store = createStore()
+
+  sync(store, router)
+
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App) 
+  })
+
+  return {app, router, store}
+  // return { app, router, store, eventBus: app.$events }
+}

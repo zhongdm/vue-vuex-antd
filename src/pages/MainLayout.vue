@@ -8,7 +8,9 @@
         <menu-bar></menu-bar>
       <!-- </a-col> -->
       <!-- <a-col :xs="20" :sm="16" :md="16" :lg="16" :xl="18"> -->
+        <div class="main-container">
         <router-view/>
+        </div>
       <!-- </a-col> -->
     <!-- </a-row> -->
   </div>
@@ -40,4 +42,13 @@ export default {
   line-height 60px
   background #000
   width 100%
+.main-container {
+  margin-left: 200px;
+  padding-left: 10px;
+}
+@media screen and (max-width: 1000px) {
+  .main-container {
+    overflow-x: scroll;
+  }
+}
 </style>

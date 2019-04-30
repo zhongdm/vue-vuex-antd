@@ -121,6 +121,7 @@ export default {
   methods: {
     handleMenu (e) {
       this.activeMenu = e.key
+      // this.$router.push(e.target.dataset.path)
       this.$router.push(e.domEvent.target.dataset.path)
     }
   }

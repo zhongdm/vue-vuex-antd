@@ -109,7 +109,7 @@ export default {
   }
 }
 </script>
-<style type="text/css">
+<style>
   .img-verify canvas {
     cursor: pointer;
   }

@@ -8,7 +8,6 @@ const store = new Vuex.Store({
   },
   mutations: {
     login (state, data) {
-      console.log('store', data)
       state.username = data.username
     }
   },
@@ -19,4 +18,7 @@ const store = new Vuex.Store({
   }
 })
 
-export default store
+// export default store
+export function createStore () {
+  return store
+}

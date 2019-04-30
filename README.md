@@ -1,6 +1,19 @@
 # vue-vuex-antd
 
 > A Vue.js project
+### 包含的功能
+:blush:[查看更多emoji](https://github.com/guodongxiaren/README/blob/master/emoji.md)
++ [x] 图形验证码
++ [x] worker & sharedWorker
++ [x] 数据加密
++ [x] 地图（百度）
++ [x] 预渲染
++ [ ] 前端日志错误处理以及收集（可参考另一个项目：**react-route-config**）
++ [ ] 服务端渲染
++ [ ] 菜单权限
++ [ ] 聊天室
++ [ ] axios封装
+
 
 ## 预渲染 VS 服务端渲染
 
@@ -40,4 +53,9 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 + Service Workers
 + Chrome Workers
 + 音频Workers
+
+
+## 错误
++ Module parse failed: Unexpected character '@'
+> 添加一个css解析器
 

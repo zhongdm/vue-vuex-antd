@@ -1,0 +1,13 @@
+{
+  "info": {
+    "username": "admin",
+    "password": "123456"
+  },
+  "list": [{
+    "id": 1,
+    "title": "垃圾收集时机"
+  }, {
+    "id": 2,
+    "title": "日志收集"
+  }]
+}

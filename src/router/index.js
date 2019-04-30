@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/login',
@@ -12,14 +13,17 @@ const router = new Router({
     },
     {
       path: '/',
+      name: 'Root',
       component: () => import('@/pages/MainLayout'),
       children: [
         {
           path: '',
+          name: 'Info',
           component: () => import('@/pages/home/Info')
         },
         {
           path: 'charts',
+          name: 'Charts',
           component: () => import('@/pages/map'),
           children: [
             {
@@ -28,13 +32,14 @@ const router = new Router({
             },
             {
               path: 'map',
-              name: 'map',
+              name: 'Map',
               component: () => import('@/pages/map/path')
             }
           ]
         },
         {
           path: 'settings',
+          name: 'Settings',
           component: () => import('@/pages/settings/Settings'),
           children: [
             {
@@ -55,22 +60,27 @@ const router = new Router({
         },
         {
           path: 'tragedy',
+          name: 'Tragedy',
           component: () => import('@/pages/tragedy/Index'),
           children: [
             {
               path: 'native',
+              name: 'Native',
               component: () => import('@/pages/tragedy/PatchHandle')
             },
             {
               path: 'worker',
+              name: 'Worker',
               component: () => import('@/pages/tragedy/DedicatedWorker')
             },
             {
               path: 'sw1',
+              name: 'SW1',
               component: () => import('@/pages/tragedy/SharedWorker1')
             },
             {
               path: 'sw2',
+              name: 'SW2',
               component: () => import('@/pages/tragedy/SharedWorker2')
             }
           ]
@@ -84,4 +94,8 @@ const router = new Router({
 //   console.log(to.path, from)
 //   next()
 // })
-export default router
+
+export function createRouter () {
+  return router
+}
+// export default router

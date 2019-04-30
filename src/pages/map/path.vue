@@ -43,7 +43,7 @@ export default {
       chartData: []
     }
   },
-  mounted() {
+  mounted() { // ssr模式下，created钩子函数中无法生成地图
     this.initMap()
   },
   methods: {

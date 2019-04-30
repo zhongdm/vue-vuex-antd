@@ -19,4 +19,9 @@ export default {
   color: #2c3e50;
   /* margin-top: 60px; */
 }
+@media screen and (max-width: 1000px) {
+  #app {
+    overflow-x: scroll;
+  }
+}
 </style>
