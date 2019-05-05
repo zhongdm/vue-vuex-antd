@@ -90,6 +90,11 @@ export default {
           ]
         },
         {
+          key: '5',
+          value: '聊天室',
+          link: '/chatroom'
+        },
+        {
           key: '4',
           value: '处理策略',
           children: [

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <div class="nav-container">
       <a-button @click="hangleLogout" ghost>退出</a-button>
     </div>
@@ -17,19 +17,25 @@
 </template>
 
 <script>
+import {decrypt} from '@/utils/jsencrypt'
+
 export default {
   data () {
     return {
     }
   },
   mounted () {
-    // this.$router.push('/Home')
+    if (!!decrypt(sessionStorage.getItem('u'))) {
+      this.$store.dispatch('login', {username: sessionStorage.getItem('u')})
+    }
   },
   components: {
     MenuBar: () => import('@/components/MenuBar')
   },
   methods: {
     hangleLogout () {
+      // 清空缓存信息
+      sessionStorage.clear()
       this.$router.push('/login')
     }
   }

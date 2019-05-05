@@ -44,22 +44,6 @@ export default {
   methods: {
     handleLogin () {
       this.$store.dispatch('login', {username: encrypt('miyazhong')})
-      // let jse = new this.$jsEncrypt()
-      // console.log(new this.$jsEncrypt())
-      // await axios.get('/static/rsa_1024_pub.pem').then(res => {
-      //   jse.setPublicKey(res.data)
-      // }).catch(err => {
-      //   console.log('error: ', err)
-      // })
-      // let encrypted = jse.encrypt('miyazhong')
-      // console.log('jiami', encrypted)
-      // await axios.get('/static/rsa_1024_priv.pem').then(res => {
-      //   jse.setPrivateKey(res.data)
-      // }).catch(err => {
-      //   console.log('error: ', err)
-      // })
-      // let decrypted = jse.decrypt(encrypted)
-      // console.log('jiemi', decrypted)
       this.$router.push('/')
     },
     toggleRemember () {

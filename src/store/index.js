@@ -9,6 +9,9 @@ const store = new Vuex.Store({
   mutations: {
     login (state, data) {
       state.username = data.username
+      if (!sessionStorage.getItem('u')) {
+        sessionStorage.setItem('u', data.username)
+      }
     }
   },
   actions: {

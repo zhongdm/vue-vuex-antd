@@ -84,6 +84,11 @@ const router = new Router({
               component: () => import('@/pages/tragedy/SharedWorker2')
             }
           ]
+        },
+        {
+          path: '/chatroom',
+          name: 'ChatRoom',
+          component: () => import('../pages/chatroom')
         }
       ]
     }
