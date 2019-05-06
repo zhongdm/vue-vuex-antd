@@ -2,28 +2,25 @@
   <div>
     <h1>聊天室</h1>
     <div class="chat-container">
-      <div class="room-first">
+      <div class="chat-room">
         <h2>在线聊天室1</h2>
+        <p>bug: 刷新后用户usrname丢失</p>
+        <p>解决方案：禁止刷新，否则跳转到登陆页面，或者所有数据丢失</p>
         <div class="content">
-          <div id="messages">{{messages}}</div>
+          <div id="messages"></div>
         </div>
-        <textarea placeholder="请输入聊天内容" ref="input" @keydown="keyPress" v-model="value1" name="" id="cr1" cols="30" rows="10"></textarea>
-        <button @click="commitRoomOne">提交</button>
-      </div>
-
-      <div class="room-another">
-        <h2>在线聊天室2</h2>
-        <div class="content">
-
+        <div class="control">
+          <textarea placeholder="请输入聊天内容" ref="input" @keydown="keyPress" v-model="value1" name="" id="cr1" cols="30" rows="2"></textarea>
+          <button @click="commitRoomOne">提交</button>
         </div>
-        <textarea placeholder="请输入聊天内容" name="" id="cr2" cols="30" rows="10"></textarea>
-        <button @click="commitRoomTwo">提交</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import {decrypt} from '@/utils/jsencrypt'
 import * as io from 'socket.io-client'
 export default {
   data () {
@@ -34,36 +31,51 @@ export default {
       messages: ''
     }
   },
+  computed: {
+    msg: () => {
+      return this.messages
+    },
+    ...mapState({
+      username: state => state.username
+    })
+  },
   created () {
     this.socket = io.connect('http://localhost:3000')
   },
   mounted () {
     let socket = this.socket
-
+    if (decrypt(this.username)) {
+      socket.emit('add user', this.username)
+    }
+    
     socket.on('user joined', (data) => {
-
+      let username = decrypt(data.username)
+      document.getElementById('messages').innerHTML += '<p class="reminder"><em>'+ username + '</em>加入了聊天室</p>'
     })
-
+    
     socket.on('new message', (data) => {
-      this.messages += data.message
+      this.addChatMessage(data)
     })
   },
   methods: {
-    commitRoomOne () {
+    commitRoomOne (e) {
       this.socket.emit('new message', this.value1)
+      e.prevent
+      this.value1 = ''
     },
     keyPress (event) {
       if (event.keyCode === 13) {
         event.prevent
-        this.value1 = ''
-        this.commitRoomOne()
-        
+        this.addChatMessage({
+          username: this.username,
+          message: this.value1
+        }, true)
+        this.commitRoomOne(event)
       }
     },
-    commitRoomTwo () {
-
-    },
-    emitData () {
+    addChatMessage (data, options) {
+      let className = options ? 'right' : ''
+      document.getElementById('messages').innerHTML += '<p class="'+className+'">' + decrypt(data.username) + ": " + data.message +'</p>'
     }
   }
 }
@@ -73,11 +85,36 @@ export default {
   .chat-container {
     display: flex;
   }
-  .room-first, .room-another {
+  .chat-room {
+    position: relative;
     display: inline-block;
-    border: 1px solid red;
+    border: 1px solid #ddd;
     flex: 1;
     height: 500px;
     margin-right: 20px;
+    padding: 20px;
+    
+  }
+  .content {
+    min-height: 290px;
+    overflow-y: scroll;
+    padding: 20px;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px inset gray;
+    text-align: left;
+  }
+  .content .right {
+    text-align: right;
+    color: green;
+  }
+  .content .reminder {
+    text-align: center;
+  }
+  .content .reminder em {
+    font-weight: bolder;
+  }
+  .control {
+    position: absolute;
+    bottom: 10px;
   }
 </style>

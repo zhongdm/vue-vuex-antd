@@ -17,9 +17,8 @@ io.on('connection', (socket) => {
   // socket.emit('user', {name: 'jackie'})
   console.log('连接成功')
   socket.on('new message', (data) => {
-    console.log(data+'   111')
     socket.broadcast.emit('new message', {
-      username: socket.username || 'miya',
+      username: socket.username,
       message: data
     })
   })
@@ -29,9 +28,9 @@ io.on('connection', (socket) => {
 
     socket.username = username
 
-    scoket.on('login', {
+    // scoket.on('login', {
 
-    })
+    // })
 
     socket.broadcast.emit('user joined', {
       username: socket.username,

@@ -1,9 +1,15 @@
 <template>
   <div class="form-container">
     <img src="@/assets/images/plum.jpg">
-    <a-form>
+    <a-form
+      :form="form"
+      @submit="handleLogin">
       <a-form-item>
         <a-input
+          v-decorator="[
+            'username',
+            {rules: [{ required: true, message: 'Please input your username!' }]}
+          ]"
           placeholder="userName">
           <a-icon slot="prefix" type="user"></a-icon>
         </a-input>
@@ -21,7 +27,7 @@
         <a href="" class="login-password-forgot">忘记密码</a>
       </a-form-item>
       <a-form-item>
-        <a-button type="primary" block @click="handleLogin">登录</a-button>
+        <a-button type="primary" html-type="submit" block>登录</a-button>
       </a-form-item>
     </a-form>
     <ImgVerify @imgCode="imgCode" ref="imgVerify"/>
@@ -36,15 +42,22 @@ import {encrypt} from '@/utils/jsencrypt'
 export default {
   data () {
     return {
+      form: this.$form.createForm(this),
       isRemember: true
     }
   },
   mounted () {
   },
   methods: {
-    handleLogin () {
-      this.$store.dispatch('login', {username: encrypt('miyazhong')})
-      this.$router.push('/')
+    handleLogin (e) {
+      // 验证
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          this.$store.dispatch('login', {username: encrypt(values.username)})
+          this.$router.push('/')
+        }
+      });
     },
     toggleRemember () {
       this.isRemember = !this.isRemember

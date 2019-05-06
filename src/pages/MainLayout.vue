@@ -25,6 +25,7 @@ export default {
     }
   },
   mounted () {
+    console.log('main, ', decrypt(sessionStorage.getItem('u')))
     if (!!decrypt(sessionStorage.getItem('u'))) {
       this.$store.dispatch('login', {username: sessionStorage.getItem('u')})
     }
