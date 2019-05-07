@@ -10,7 +10,9 @@
             'username',
             {rules: [{ required: true, message: 'Please input your username!' }]}
           ]"
-          placeholder="userName">
+          placeholder="userName"
+          v-model="username"
+          class="usrname">
           <a-icon slot="prefix" type="user"></a-icon>
         </a-input>
       </a-form-item>
@@ -43,6 +45,7 @@ export default {
   data () {
     return {
       form: this.$form.createForm(this),
+      username: '123',
       isRemember: true
     }
   },

@@ -14,12 +14,14 @@ import { createRouter } from './router'
 import { createStore } from '@/store'
 import { sync } from 'vuex-router-sync'
 import EventBus from './plugins-custom/SharedEventBus'
+import VCharts from 'v-charts'
 
 Vue.config.productionTip = false
 Vue.use(TestPlugin)
 Vue.use(EventBus)
 Vue.use(Antd)
 // Vue.use(ElementUI)
+Vue.use(VCharts)
 Vue.prototype.$jsEncrypt = JsEncrypt
 
 /* eslint-disable no-new */

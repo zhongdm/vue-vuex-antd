@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>地图轨迹</h2>
+    <h2>图表</h2>
     <router-view></router-view>
   </div>
 </template>

@@ -34,6 +34,11 @@ const router = new Router({
               path: 'map',
               name: 'Map',
               component: () => import('@/pages/map/path')
+            },
+            {
+              path: 'library',
+              name: 'Library',
+              component: () => import('@/pages/map/library')
             }
           ]
         },
@@ -89,6 +94,11 @@ const router = new Router({
           path: '/chatroom',
           name: 'ChatRoom',
           component: () => import('../pages/chatroom')
+        },
+        {
+          path: '/js',
+          name: 'drag',
+          component: () => import('../pages/nativeJS/draggable')
         }
       ]
     }

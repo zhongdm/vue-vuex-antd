@@ -60,14 +60,11 @@ export default {
           children: [
             {
               key: '2-1',
-              value: '趋势图'
+              value: '图库',
+              link: '/charts/library'
             },
             {
               key: '2-2',
-              value: '分布图'
-            },
-            {
-              key: '2-3',
               value: '地图',
               link: '/charts/map'
             }
@@ -119,6 +116,15 @@ export default {
               link: '/tragedy/sw2'
             }
           ]
+        },
+        {
+          key: '6',
+          value: '原生功能实现',
+          children: [{
+            key: '6-1',
+            value: '拖拽',
+            link: '/js'
+          }]
         }
       ]
     }
