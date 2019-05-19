@@ -22,30 +22,14 @@ const router = new Router({
           component: () => import('@/pages/home/Info')
         },
         {
-          path: 'charts',
-          name: 'Charts',
-          component: () => import('@/pages/map'),
-          children: [
-            {
-              path: '',
-              redirect: 'map'
-            },
-            {
-              path: 'map',
-              name: 'Map',
-              component: () => import('@/pages/map/path')
-            },
-            {
-              path: 'library',
-              name: 'Library',
-              component: () => import('@/pages/map/library')
-            }
-          ]
+          path: 'info',
+          name: 'Editor',
+          component: () => import('@/pages/home/Editor')
         },
         {
           path: 'settings',
           name: 'Settings',
-          component: () => import('@/pages/settings/Settings'),
+          component: () => import('@/pages/settings'),
           children: [
             {
               path: '',
@@ -60,57 +44,34 @@ const router = new Router({
               path: 'role',
               name: 'Role',
               component: () => import('@/pages/settings/Role')
+            },
+            {
+              path: 'menu',
+              name: 'Menu',
+              component: () => import('@/pages/settings/Menu')
+            },
+            {
+              path: 'auth',
+              name: 'Auth',
+              component: () => import('@/pages/settings/Auth')
             }
           ]
-        },
-        {
-          path: 'tragedy',
-          name: 'Tragedy',
-          component: () => import('@/pages/tragedy/Index'),
-          children: [
-            {
-              path: 'native',
-              name: 'Native',
-              component: () => import('@/pages/tragedy/PatchHandle')
-            },
-            {
-              path: 'worker',
-              name: 'Worker',
-              component: () => import('@/pages/tragedy/DedicatedWorker')
-            },
-            {
-              path: 'sw1',
-              name: 'SW1',
-              component: () => import('@/pages/tragedy/SharedWorker1')
-            },
-            {
-              path: 'sw2',
-              name: 'SW2',
-              component: () => import('@/pages/tragedy/SharedWorker2')
-            }
-          ]
-        },
-        {
-          path: '/chatroom',
-          name: 'ChatRoom',
-          component: () => import('../pages/chatroom')
-        },
-        {
-          path: '/js',
-          name: 'drag',
-          component: () => import('../pages/nativeJS/draggable')
         }
       ]
     }
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   console.log(to.path, from)
-//   next()
-// })
+router.beforeEach((to, from, next) => {
+  if (sessionStorage.getItem('u')) {
+    next()
+  } else {
+    if (to.path === '/login') { //这就是跳出循环的关键
+      next()
+   } else {
+    next({path: '/login'})
+   }
+  }
+})
 
-export function createRouter () {
-  return router
-}
-// export default router
+export default router

@@ -1,147 +1,143 @@
 <template>
-  <!-- <a-menu
-    mode="inline"
-    class="menu-bar"
-    theme="dark"
-    :defaultSelectedKeys="['1']"
-    :defaultOpenKeys="['o1']"
-    :selectedKeys="[activeMenu]"
-    @click="handleMenu">
-    <a-menu-item key="1">信息详情</a-menu-item>
-    <a-sub-menu key="o1">
-      <span slot="title">图表</span>
-      <a-menu-item key="2">趋势图</a-menu-item>
-      <a-menu-item key="3">分布图</a-menu-item>
-    </a-sub-menu>
-    <a-menu-item key="4">配置中心</a-menu-item>
-  </a-menu> -->
   <div>
-  <a-menu
-    mode="inline"
-    class="menu-bar"
-    theme="dark"
-    :defaultSelectedKeys="['1']"
-    :defaultOpenKeys="['2']"
-    :selectedKeys="[activeMenu]"
+  <el-menu
+    :default-active="activeMenu"
+    :collapse="isCollapse"
+    class="el-menu-vertical-demo"
+    :router="true"
+    @select="goMenu"
     @click="handleMenu">
     <template v-for="item in menuList">
-      <a-sub-menu :title="item.value" :key="item.key" v-if="item.children">
-        <template v-for="subItem in item.children">
-          <a-menu-item :key="subItem.key" :data-path="subItem.link">{{subItem.value}}</a-menu-item>
+      <el-submenu :index="item.id" :key="item.id" v-if="item.childMenus.length > 0">
+        <template slot="title">
+          <i :class="item.iconcls"></i>
+          <span>{{item.menuName}}</span>
         </template>
-    </a-sub-menu>
-    <a-menu-item v-else :key="item.key" :data-path="item.link">{{item.value}}</a-menu-item>
+        <template v-for="subItem in item.childMenus">
+          <el-menu-item :index="subItem.id" :route="{path: item.request + subItem.request}" :key="subItem.id">
+            <i :class="subItem.iconcls"></i>
+            <span>{{subItem.menuName}}</span>
+          </el-menu-item>
+        </template>
+      </el-submenu>
+      <el-menu-item v-else :index="item.id" :key="item.id" :route="{path: item.request}">
+        <i :class="item.iconcls"></i>
+        <span>{{item.menuName}}</span>
+      </el-menu-item>
     </template>
-  </a-menu>
+  </el-menu>
   </div>
 </template>
 
 <script>
+import {getCurrentMenu} from '@/common/util.js'
+import {getMenuList} from '@/api/'
 export default {
   name: 'menu-bar',
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false
+    },
+    menuList: Array
+  },
   data () {
     return {
-      activeMenu: '1'
+      activeMenu: sessionStorage.getItem('active-menu') || '1',
+      // menuList: []
     }
   },
   computed: {
-    menuList () {
+    menuList111 () {
       return [
         {
           key: '1',
+          id: '1',
           value: '信息详情',
           selected: true,
-          link: '/'
+          link: '/info'
         },
         {
           key: '2',
-          value: '图表',
-          open: false,
-          children: [
-            {
-              key: '2-1',
-              value: '图库',
-              link: '/charts/library'
-            },
-            {
-              key: '2-2',
-              value: '地图',
-              link: '/charts/map'
-            }
-          ]
+          id: '2',
+          value: '信息详情222',
+          selected: true,
+          isAdmin: false,
+          link: '/a'
         },
         {
           key: '3',
-          value: '配置中心',
+          id: '3',
+          value: '系统设置',
+          link: '/settings',
           children: [
             {
               key: '3-1',
-              value: '用户',
-              link: '/settings/user'
+              id: '3-1',
+              value: '用户管理',
+              link: '/user'
             },
             {
               key: '3-2',
-              value: '角色',
-              link: '/settings/role'
+              id: '3-2',
+              value: '角色管理',
+              link: '/role'
+            },
+            {
+              key: '3-3',
+              id: '3-3',
+              value: '菜单管理',
+              link: '/menu'
+            },
+            {
+              key: '3-4',
+              id: '3-4',
+              value: '权限管理',
+              link: '/auth'
             }
           ]
-        },
-        {
-          key: '5',
-          value: '聊天室',
-          link: '/chatroom'
-        },
-        {
-          key: '4',
-          value: '处理策略',
-          children: [
-            {
-              key: '4-1',
-              value: '原始处理',
-              link: '/tragedy/native'
-            },
-            {
-              key: '4-2',
-              value: '大数据量处理',
-              link: '/tragedy/worker'
-            },
-            {
-              key: '4-3',
-              value: '共享worker-one',
-              link: '/tragedy/sw1'
-            },
-            {
-              key: '4-4',
-              value: '共享worker-two',
-              link: '/tragedy/sw2'
-            }
-          ]
-        },
-        {
-          key: '6',
-          value: '原生功能实现',
-          children: [{
-            key: '6-1',
-            value: '拖拽',
-            link: '/js'
-          }]
         }
       ]
     }
   },
+  mounted () {
+    // this.getMenuList()
+  },
   methods: {
     handleMenu (e) {
       this.activeMenu = e.key
-      // this.$router.push(e.target.dataset.path)
-      this.$router.push(e.domEvent.target.dataset.path)
+      // this.$router.push(e.domEvent.target.dataset.path)
+    },
+    goMenu(index, indexPath) {
+      this.activeMenu = indexPath[indexPath.length - 1]
+      sessionStorage.setItem('active-menu', indexPath[indexPath.length - 1])
+      let menu = getCurrentMenu(indexPath[indexPath.length - 1], this.menuList)
+      this.$store.dispatch('changeCurrentMenu', menu)
+      this.$emit('floatHidden')
+    },
+    async getMenuList () {
+      // TODO:
+      await getMenuList().then(res => {
+        if (res.code ===200) {
+          this.menuList = res.data
+        }
+      })
+      this.$store.dispatch('getMenuList', this.menuList)
     }
   }
 }
 </script>
 
-<style lang="stylus" scoped>
-.menu-bar
-  border 1px solid #ddd
-  width 200px
-  float left
+<style>
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    /* min-height: 400px; */
+  }
+</style>
+<style scoped>
+.menu-bar {
+  border: 1px solid #ddd;
+  /* width: 200px; */
+  /* float: left; */
+}
 </style>

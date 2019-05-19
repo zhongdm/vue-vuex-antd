@@ -93,7 +93,6 @@ export default {
       return data[this.getIntRandom(data.length)]
     },
     handleCanvasClick () {
-      console.log('clicked')
       this.draw()
     }
   }
@@ -102,8 +101,6 @@ export default {
 
 <style lang="stylus" scoped>
 #canvas {
-  // width 160px
-  // height 40px
-  border 1px solid red
+  border 1px solid #d5d5d5
 }
 </style>

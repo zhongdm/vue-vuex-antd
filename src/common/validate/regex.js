@@ -1,0 +1,1 @@
+export const phoneReg = /^1[3-7]\d{9}$/g

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import fetch from '../api/fetch'
+import fetch from '../common/fetch'
 
 /**
  * 共享的EventBus插件

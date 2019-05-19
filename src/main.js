@@ -2,50 +2,33 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import TestPlugin from './plugins-custom/TestPlugin'
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
-// import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-chalk/index.css'
+import cml from './plugins-custom/ConstantMesaage'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import JsEncrypt from 'jsencrypt'
-// import router from './router'
-// import store from '@/store'
-import { createRouter } from './router'
-import { createStore } from '@/store'
-import { sync } from 'vuex-router-sync'
+import router from './router'
+import store from '@/store'
 import EventBus from './plugins-custom/SharedEventBus'
 import VCharts from 'v-charts'
+import '@/common/request.js'
+import GLOBAL_ from '@/common/constant'
+import '@/assets/icon/iconfont.css'
+// import VueFeatherIcon from 'vue-feather-icon'
 
+Vue.prototype.GLOBAL = GLOBAL_
 Vue.config.productionTip = false
-Vue.use(TestPlugin)
+// Vue.use(VueFeatherIcon)
+Vue.use(cml)
 Vue.use(EventBus)
-Vue.use(Antd)
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 Vue.use(VCharts)
 Vue.prototype.$jsEncrypt = JsEncrypt
 
 /* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   store,
-//   components: { App },
-//   template: '<App/>'
-// })
-
-export function createApp () {
-
-  const router = createRouter()
-  const store = createStore()
-
-  sync(store, router)
-
-  const app = new Vue({
-    router,
-    store,
-    render: h => h(App) 
-  })
-
-  return {app, router, store}
-  // return { app, router, store, eventBus: app.$events }
-}
+new Vue({
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>'
+})

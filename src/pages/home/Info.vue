@@ -6,7 +6,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {encrypt, decrypt} from '@/utils/jsencrypt'
+import {encrypt, decrypt} from '@/common/jsencrypt'
 export default {
   name: 'Info',
   data () {

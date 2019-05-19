@@ -10,7 +10,17 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api/1.0/web': {
+        target: 'http://cpc.test.weituandui.com.cn', //线上测试服务器
+        // target: 'http://localhost:3030',
+        changeOrigin:true,
+        autoRewrite: true,
+        // pathRewrite: {
+        //   '^/apis': ''
+        // }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
